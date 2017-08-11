@@ -4,9 +4,9 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://MikeDMontana:Mi55oula123@ds129143.mlab.com:29143/foodies-plan-it');
 
-var UserSchema = require('./src/models/user');
-var PartySchema = require('./src/models/user');
-var MealSchema = require('./src/models/user');
+var UserSchema = require('./models/user');
+var PartySchema = require('./models/user');
+var MealSchema = require('./models/user');
 var User = UserSchema.User;
 var Party = UserSchema.Party;
 var Meal = PartySchema.Meal;
@@ -111,10 +111,17 @@ router.route('/users')
           if (err)
             res.send(err);
 
+            // var party = new Party({
+            //   title: req.body.title,
+            //   description: req.body.description,
+            // });
+
             var party = new Party({
-              title: req.body.title,
-              description: req.body.description,
+              title: "my title",
+              description: "my descript",
             });
+
+            console.log(req.body[0]);
 
           // user.name = req.body.name;  // update user name
           // user.email = req.body.email; // update user email

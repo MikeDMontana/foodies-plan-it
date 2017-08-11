@@ -63,12 +63,12 @@ class Home extends Component {
     // });
     axios({
       method: 'put',
-      url: 'http://localhost:8080/api/users/' + profileId,
+      url: '/api/users/' + profileId,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: {
-        title: this.state.partyDescription,
+        title: this.state.partyTitle,
         description: this.state.partyDescription
       }
     });
