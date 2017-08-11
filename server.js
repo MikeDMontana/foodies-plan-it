@@ -117,11 +117,10 @@ router.route('/users')
             // });
 
             var party = new Party({
-              title: "my title",
-              description: "my descript",
+              title: req.body.title,
+              description: req.body.description,
             });
 
-            console.log(req.body[0]);
 
           // user.name = req.body.name;  // update user name
           // user.email = req.body.email; // update user email

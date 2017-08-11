@@ -27,16 +27,16 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    let config = {"X-Mashape-Key": "thENAA1AsWmshrk3g1Wkjto9yLEcp1l5DdUjsnNgmYe1qsTLC4",
-                    "Accept": "application/json"};
-
-    axios.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=1&tags=vegetarian%2Cdessert", {headers:config})
-      .then((response) => {
-        const recipeImg = response.data.recipes[0];
-        this.setState({
-          recipeImg: recipeImg
-        });
-      });
+    // let config = {"X-Mashape-Key": "thENAA1AsWmshrk3g1Wkjto9yLEcp1l5DdUjsnNgmYe1qsTLC4",
+    //                 "Accept": "application/json"};
+    //
+    // axios.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=1&tags=vegetarian%2Cdessert", {headers:config})
+    //   .then((response) => {
+    //     const recipeImg = response.data.recipes[0];
+    //     this.setState({
+    //       recipeImg: recipeImg
+    //     });
+    //   });
   }
 
   handleTitleChange(event) {
@@ -57,21 +57,25 @@ class Home extends Component {
     // const party = {title:this.state.partyTitle, description:this.state.partyDescription};
     const profileId = this.state.profile.sub.replace('auth0|', '');
 
-    // axios.get("http://localhost:8080/api/users/" + profileId)
-    // .then((response) => {
-    //   console.log(response);
+    // axios({
+    //   method: 'put',
+    //   url: '/api/users/' + profileId,
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data: {
+    //     title: this.state.partyTitle,
+    //     description: this.state.partyDescription
+    //   }
     // });
-    axios({
-      method: 'put',
-      url: '/api/users/' + profileId,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        title: this.state.partyTitle,
-        description: this.state.partyDescription
-      }
-    });
+
+    axios.put('/api/users/' + profileId, {
+      title: this.state.partyTitle,
+      description: this.state.partyDescription
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
 
     event.preventDefault();
   }
