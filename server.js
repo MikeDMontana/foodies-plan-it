@@ -17,6 +17,12 @@ var Recipe = MealSchema.Recipe;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 var port = process.env.PORT || 8080;  //set port
 
 // Routes for our API
@@ -57,12 +63,6 @@ router.route('/users')
       title: 'mealtitle for a king',
       description: 'mealdescript for a king',
       recipes: recipe
-    });
-
-    var party = new Party({
-      title: 'PartyTitle for a King',
-      description: 'partyDescript for a King',
-      meals: meal
     });
 
     var user = new User();  //create a new instance of the user model
@@ -111,9 +111,14 @@ router.route('/users')
           if (err)
             res.send(err);
 
-          user.name = req.body.name;  // update user name
-          user.email = req.body.email; // update user email
-          user.parties = req.body.parties;  // update user's parties list
+            var party = new Party({
+              title: req.body.title,
+              description: req.body.description,
+            });
+
+          // user.name = req.body.name;  // update user name
+          // user.email = req.body.email; // update user email
+          user.parties = party;
           //save the user
           user.save(function(err) {
             if (err)
@@ -135,8 +140,6 @@ router.route('/users')
             res.json({ message: 'Successfully deleted' });
         });
       });
-
-
 
 
 // Register Our Routes ------------------

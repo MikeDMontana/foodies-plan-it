@@ -14,6 +14,18 @@ class Home extends Component {
     };
   }
 
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
+    } else {
+      this.setState({ profile: userProfile });
+    }
+  }
+
   componentDidMount() {
     let config = {"X-Mashape-Key": "thENAA1AsWmshrk3g1Wkjto9yLEcp1l5DdUjsnNgmYe1qsTLC4",
                     "Accept": "application/json"};
@@ -42,7 +54,24 @@ class Home extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.partyTitle + " " + this.state.partyDescription);
+    // const party = {title:this.state.partyTitle, description:this.state.partyDescription};
+    const profileId = this.state.profile.sub.replace('auth0|', '');
+
+    // axios.get("http://localhost:8080/api/users/" + profileId)
+    // .then((response) => {
+    //   console.log(response);
+    // });
+    axios({
+      method: 'put',
+      url: 'http://localhost:8080/api/users/' + profileId,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        title: this.state.partyDescription,
+        description: this.state.partyDescription
+      }
+    });
 
     event.preventDefault();
   }
