@@ -19,7 +19,7 @@ var MealSchema = mongoose.Schema({
 
 var PartySchema = mongoose.Schema({
   title: String,
-  // date: Date,
+  date: Date,
   description: String,
   meals: [MealSchema]
 });

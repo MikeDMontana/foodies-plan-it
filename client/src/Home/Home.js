@@ -10,7 +10,8 @@ class Home extends Component {
     this.state = {
       recipeImg: {},
       partyTitle: "",
-      partyDescription: ""
+      partyDescription: "",
+      partyDate: ""
     };
   }
 
@@ -53,25 +54,20 @@ class Home extends Component {
     });
   }
 
-  handleSubmit(event) {
-    // const party = {title:this.state.partyTitle, description:this.state.partyDescription};
-    const profileId = this.state.profile.sub.replace('auth0|', '');
+  handleDateChange(event) {
+    const partyDate = event.target.value;
+    this.setState({
+      partyDate: partyDate
+    })
+  }
 
-    // axios({
-    //   method: 'put',
-    //   url: '/api/users/' + profileId,
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data: {
-    //     title: this.state.partyTitle,
-    //     description: this.state.partyDescription
-    //   }
-    // });
+  handleSubmit(event) {
+    const profileId = this.state.profile.sub.replace('auth0|', '');
 
     axios.put('/api/users/' + profileId, {
       title: this.state.partyTitle,
-      description: this.state.partyDescription
+      description: this.state.partyDescription,
+      date: this.state.partyDate
     })
       .catch(function (error) {
         console.log(error);
@@ -110,10 +106,13 @@ class Home extends Component {
               </h4>
             )
         }
-        <p>{this.state.recipeImg.title}</p>
+        <h1>Foodies Plan.It</h1>
+        <p>Hi {this.state.profile.nickname}! <br />
+           Please get started by creating a party.</p>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Your Party Title..." value={this.state.partyTitle}/>
           <input type="text" onChange={this.handleDescriptionChange.bind(this)} placeholder="Your Party Description" value={this.state.partyDescription}/>
+          <input type="date" onChange={this.handleDateChange.bind(this)} name="Party Date" />
           <input type="submit" value="submit" />
         </form>
       </div>

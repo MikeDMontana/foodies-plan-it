@@ -111,14 +111,10 @@ router.route('/users')
           if (err)
             res.send(err);
 
-            // var party = new Party({
-            //   title: req.body.title,
-            //   description: req.body.description,
-            // });
-
             var party = new Party({
               title: req.body.title,
               description: req.body.description,
+              date: req.body.date
             });
 
 
@@ -146,6 +142,44 @@ router.route('/users')
             res.json({ message: 'Successfully deleted' });
         });
       });
+
+      router.route('/users/:user_id/parties/:party_id')
+
+        //get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id)
+        .get(function(req, res) {
+          User.findById(req.params.user_id, function(err, user) {
+            if (err)
+              res.send(err);
+              res.json(user.parties.id(req.params.party_id));
+          });
+        })
+
+        // after the GETting the correct party update it!
+        .put(function(req, res) {
+
+          // use our user model to find the user we want
+          User.findById(req.params.user_id, function(err, user) {
+            if (err)
+              res.send(err);
+
+              var meal = new Meal({
+                title: req.body.title,
+                description: req.body.description,
+              });
+
+
+            // user.name = req.body.name;  // update user name
+            // user.email = req.body.email; // update user email
+            user.parties.id(req.params.party_id).meals = meal;
+            //save the user
+            user.save(function(err) {
+              if (err)
+                res.send(err);
+
+              res.json({ message: 'user updated!' });
+            });
+          });
+        })
 
 
 // Register Our Routes ------------------
