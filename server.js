@@ -167,11 +167,7 @@ router.route('/users')
                 description: req.body.description,
               });
 
-
-            // user.name = req.body.name;  // update user name
-            // user.email = req.body.email; // update user email
             user.parties.id(req.params.party_id).meals = meal;
-            //save the user
             user.save(function(err) {
               if (err)
                 res.send(err);

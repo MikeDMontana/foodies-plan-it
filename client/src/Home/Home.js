@@ -11,7 +11,9 @@ class Home extends Component {
       recipeImg: {},
       partyTitle: "",
       partyDescription: "",
-      partyDate: ""
+      partyDate: "",
+      partyList: [],
+      partyListFlag: false
     };
   }
 
@@ -38,6 +40,22 @@ class Home extends Component {
     //       recipeImg: recipeImg
     //     });
     //   });
+  }
+
+  partiesBtnClicked(event) {
+    const profileId = this.state.profile.sub.replace('auth0|', '');
+
+    axios.get('/api/users/' + profileId)
+      .then((response) => {
+        const partyList = response.data.parties;
+        this.setState({
+          partyList: partyList
+        });
+      });
+
+      this.setState({
+        partyListFlag: !this.state.partyListFlag
+      });
   }
 
   handleTitleChange(event) {
@@ -115,6 +133,10 @@ class Home extends Component {
           <input type="date" onChange={this.handleDateChange.bind(this)} name="Party Date" />
           <input type="submit" value="submit" />
         </form>
+        <button onClick={this.partiesBtnClicked.bind(this)}>VIEW PARTIES</button>
+        {this.state.partyListFlag && this.state.partyList.map((party) =>
+            <p>{party.title}</p>
+        )}
       </div>
     );
   }
