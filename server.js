@@ -120,7 +120,7 @@ router.route('/users')
 
           // user.name = req.body.name;  // update user name
           // user.email = req.body.email; // update user email
-          user.parties = party;
+          user.parties.push(party);
           //save the user
           user.save(function(err) {
             if (err)
@@ -167,7 +167,7 @@ router.route('/users')
                 description: req.body.description,
               });
 
-            user.parties.id(req.params.party_id).meals = meal;
+            user.parties.id(req.params.party_id).meals.push(meal);
             user.save(function(err) {
               if (err)
                 res.send(err);
