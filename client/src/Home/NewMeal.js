@@ -10,8 +10,27 @@ class NewMeal extends Component {
       profile: this.props.profile,
       profileId: this.props.profileId,
       mealTitle: "",
-      mealDescription: ""
+      mealDescription: "",
+      groupUsers: [],
+      groupUserId: ""
     };
+  }
+
+  componentDidMount() {
+    axios.get('/api/users')
+      .then((response) => {
+        const groupUsers = response.data;
+        this.setState({
+          groupUsers: groupUsers
+        });
+      });
+  }
+
+  handleMealGroupUsers(event) {
+    const groupUserId = event.target.value;
+    this.setState = ({
+      groupUserId: groupUserId
+    });
   }
 
   handleMealTitleChange(event) {
@@ -40,6 +59,12 @@ class NewMeal extends Component {
         <form onSubmit={this.handleMealSubmit.bind(this)}>
           <input type="text" onChange={this.handleMealTitleChange.bind(this)} placeholder="New Meal Title" />
           <input type="text" onChange={this.handleMealDescriptionChange.bind(this)} placeholder="New Meal Description" />
+          <label className='controlLabel'>Choose Your Board</label>
+            <select className='formControl' value={this.state.groupUserId} onChange={this.handleMealGroupUsers.bind(this)}>
+              {this.state.groupUsers.map((groupUser, index) =>
+                <option value={groupUser._id}>{groupUser.email}</option>
+              )}
+            </select>
           <input type="submit" value="submit" />
         </form>
       </div>

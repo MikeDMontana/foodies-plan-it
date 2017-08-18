@@ -7,13 +7,12 @@ var RecipeSchema = mongoose.Schema({
   directions: String,
   upvotes: Number,
   downvotes: Number,
-  // users: [User]
 });
 
 var MealSchema = mongoose.Schema({
   title: String,
   description: String,
-  // users: [User],
+  groupUsers: [],
   recipes: [RecipeSchema]
 });
 

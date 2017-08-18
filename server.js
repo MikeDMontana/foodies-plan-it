@@ -145,7 +145,7 @@ router.route('/users')
 
       router.route('/users/:user_id/parties/:party_id')
 
-        //get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id)
+        //get the user with that id (accessed at GET http://localhost:8080/api/users/:user_id/parties/:party_id)
         .get(function(req, res) {
           User.findById(req.params.user_id, function(err, user) {
             if (err)
@@ -165,6 +165,7 @@ router.route('/users')
               var meal = new Meal({
                 title: req.body.title,
                 description: req.body.description,
+                groupUsers: req.body.groupUsers
               });
 
             user.parties.id(req.params.party_id).meals.push(meal);
@@ -175,8 +176,40 @@ router.route('/users')
               res.json({ message: 'user updated!' });
             });
           });
-        })
+        });
 
+        router.route('/users/:user_id/parties/:party_id/meals/:meal_id')
+          .get(function(req, res) {
+            User.findById(req.params.user_id, function(err, user) {
+              if (err)
+                res.send(err);
+                res.json(user.parties.id(req.params.party_id).meals.id(req.params.meal_id));
+            });
+          })
+
+          .put(function(req, res) {
+
+              User.findById(req.params.user_id, function(err, user) {
+                if (err)
+                  res.send(err);
+
+                  var recipe = new Recipe({
+                    dishType: req.body.dishType,
+                    name: req.body.name,
+                    ingredients: req.body.ingredients,
+                    directions: req.body.directions,
+                    upvotes: req.body.upvotes,
+                    downvotes: req.body.downvotes,
+                  });
+                user.parties.id(req.params.party_id).meals.id(req.params.meal_id).recipes.push(recipe);
+                user.save(function(err) {
+                  if (err)
+                    res.send(err);
+
+                    res.json({ message: 'user updated!' });
+                });
+              });
+          });
 
 // Register Our Routes ------------------
 // all of our routes will be prefixed with /api
