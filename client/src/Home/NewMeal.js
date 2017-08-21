@@ -8,47 +8,37 @@ class NewMeal extends Component {
 
     this.state={
       profile: this.props.profile,
-      profileId: this.props.profileId,
+      usersArray: this.props.newParty,
       mealTitle: "",
       mealDescription: "",
-      groupUsers: [],
-      groupUserId: ""
     };
   }
 
-  componentDidMount() {
-    axios.get('/api/users')
-      .then((response) => {
-        const groupUsers = response.data;
-        this.setState({
-          groupUsers: groupUsers
-        });
-      });
-  }
-
-  handleMealGroupUsers(event) {
-    const groupUserId = event.target.value;
-    this.setState = ({
-      groupUserId: groupUserId
-    });
-  }
 
   handleMealTitleChange(event) {
     const mealTitle = event.target.value;
-    this.setState=({
+    this.setState({
       mealTitle: mealTitle
     });
   }
 
   handleMealDescriptionChange(event) {
     const mealDescription = event.target.value;
-    this.setState=({
+    this.setState({
       mealDescription: mealDescription
     });
   }
 
   handleMealSubmit(event) {
-    console.log(this.props.profileId);
+    // When Meal is Submitted Put Meal into the meals model for each user selected
+    axios.put('/api/parties/' + this.props.newParty._id, {
+      title: this.state.mealTitle,
+      description: this.state.mealDescription,
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     event.preventDefault();
   }
 
@@ -59,12 +49,6 @@ class NewMeal extends Component {
         <form onSubmit={this.handleMealSubmit.bind(this)}>
           <input type="text" onChange={this.handleMealTitleChange.bind(this)} placeholder="New Meal Title" />
           <input type="text" onChange={this.handleMealDescriptionChange.bind(this)} placeholder="New Meal Description" />
-          <label className='controlLabel'>Choose Your Board</label>
-            <select className='formControl' value={this.state.groupUserId} onChange={this.handleMealGroupUsers.bind(this)}>
-              {this.state.groupUsers.map((groupUser, index) =>
-                <option value={groupUser._id}>{groupUser.email}</option>
-              )}
-            </select>
           <input type="submit" value="submit" />
         </form>
       </div>

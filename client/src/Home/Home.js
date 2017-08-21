@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import NewMeal from './NewMeal';
+import GroupUsersSelect from './GroupUsersSelect';
 
 class Home extends Component {
 
@@ -16,8 +17,10 @@ class Home extends Component {
       partyList: [],
       onOffFlag: false,
       profile: {},
-      newParty: [],
-      profileId: ""
+      newParty: {},
+      groupUsers: [],
+      groupUserId: "",
+      usersArray: []
     };
   }
 
@@ -34,11 +37,23 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    axios.get('/api/users')
+      .then((response) => {
+        const groupUsers = response.data;
+        this.setState({
+          groupUsers: groupUsers
+        });
+      });
   }
 
-  goTo(route) {
-    this.props.history.replace(`/${route}`);
-    console.log(route);
+  checkBoxClicked(event) {
+    const newGroupUser = event.target.value;
+    this.state.usersArray.push(newGroupUser);
+
+    this.setState({
+      usersArray: this.state.usersArray
+    });
+    console.log(this.state.usersArray);
   }
 
   handleTitleChange(event) {
@@ -63,30 +78,28 @@ class Home extends Component {
   }
 
   handleSubmit(event) {
-    const profileId = this.state.profile.sub.replace('auth0|', '');
-
-    axios.put('/api/users/' + profileId, {
+    console.log(this.state.usersArray);
+    axios.post('/api/parties/', {
       title: this.state.partyTitle,
       description: this.state.partyDescription,
-      date: this.state.partyDate
+      date: this.state.partyDate,
+      users: this.state.usersArray
     })
       .catch(function (error) {
         console.log(error);
       });
 
-    axios.get('/api/users/' + profileId)
+    axios.get('/api/parties')
       .then((response) => {
-        const newParty = response.data.parties[response.data.parties.length - 1];
+        const newParty = response.data[response.data.length - 1];
         this.setState({
           newParty: newParty,
           onOffFlag: !this.state.onOffFlag,
-          profileId: profileId
         });
         console.log(this.state.newParty._id);
       });
     event.preventDefault();
   }
-
 
 
   render() {
@@ -98,6 +111,13 @@ class Home extends Component {
            Please get started by creating a party.</p>
         <ul className="NewPartyForms">
           <li className="PartyForms1">
+          <h3>Select Your Team of Foodies</h3>
+            <ul>
+              {this.state.groupUsers.map((groupUser, index) =>
+                <li><button value={groupUser._id} onClick={this.checkBoxClicked.bind(this)}>{groupUser.email}</button></li>
+              )}
+            </ul>
+
             <form onSubmit={this.handleSubmit.bind(this)}>
               <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Your Party Title..." value={this.state.partyTitle}/>
               <input type="text" onChange={this.handleDescriptionChange.bind(this)} placeholder="Your Party Description" value={this.state.partyDescription}/>
@@ -106,7 +126,7 @@ class Home extends Component {
             </form>
           </li>
           <li className="PartyForms2">
-            <NewMeal profile={this.state.profile} profileId={this.state.profileId}/>
+            <NewMeal profile={this.state.profile} newParty={this.state.newParty} />
           </li>
         </ul>
       </div>

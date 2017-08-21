@@ -12,15 +12,7 @@ var RecipeSchema = mongoose.Schema({
 var MealSchema = mongoose.Schema({
   title: String,
   description: String,
-  groupUsers: [],
   recipes: [RecipeSchema]
-});
-
-var PartySchema = mongoose.Schema({
-  title: String,
-  date: Date,
-  description: String,
-  meals: [MealSchema]
 });
 
 var UserSchema = mongoose.Schema({
@@ -28,8 +20,16 @@ var UserSchema = mongoose.Schema({
   nickname: String,
   email: String,
   password: String,
-  parties: [PartySchema]
 });
+
+var PartySchema = mongoose.Schema({
+  title: String,
+  date: Date,
+  description: String,
+  meals: [MealSchema],
+  users: []
+});
+
 
 module.exports = {
     User: mongoose.model('User', UserSchema),
