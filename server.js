@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var request = require('request');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://MikeDMontana:Mi55oula123@ds129143.mlab.com:29143/foodies-plan-it');
 
@@ -210,6 +211,8 @@ router.route('/parties')
             });
           });
 
+
+//***************************************NEW ROUTE FOR USERs**************************
 router.route('/users')
 
   .get(function(req, res) {
@@ -221,6 +224,13 @@ router.route('/users')
     });
   });
 
+//***************************************NEW ROUTE FOR EXTERNAL API**************************
+router.route('/recipes/:recipeSearch')
+
+.get(function(req, res) {
+  var url = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?number=50&offset=0&query=' + req.params.recipeSearch;
+  req.pipe(request(url)).pipe(res);
+});
 
 // Register Our Routes ------------------
 // all of our routes will be prefixed with /api

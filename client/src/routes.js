@@ -3,6 +3,7 @@ import { Redirect, Route, Router } from 'react-router-dom';
 import App from './App';
 import Home from './Home/Home';
 import NewMeal from './Home/NewMeal';
+import RecipeSearch from './Home/RecipeSearch';
 import Profile from './Profile/Profile';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
@@ -23,6 +24,7 @@ export const makeMainRoutes = () => {
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/newmeal" render={(props) => <NewMeal auth={auth} {...props} />} />
+          <Route path="/recipesearch" render={(props) => <RecipeSearch auth={auth} {...props} />} />
           <Route path="/profile" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/home"/>
