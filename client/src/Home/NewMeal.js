@@ -8,7 +8,7 @@ class NewMeal extends Component {
 
     this.state={
       profile: this.props.profile,
-      usersArray: this.props.newParty,
+      newMeal: "",
       mealTitle: "",
       mealDescription: "",
     };
@@ -31,13 +31,21 @@ class NewMeal extends Component {
 
   handleMealSubmit(event) {
     // When Meal is Submitted Put Meal into the meals model for each user selected
+    // then response is party.meals. Set the most recent meal to newMeal
     axios.put('/api/parties/' + this.props.newParty._id, {
       title: this.state.mealTitle,
       description: this.state.mealDescription,
     })
-      .catch(function (error) {
-        console.log(error);
+    .then((response) => {
+      const newMeal = response.data[response.data.length - 1];
+      this.setState({
+        newMeal: newMeal,
       });
+      console.log(this.state.newMeal._id);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
     event.preventDefault();
   }

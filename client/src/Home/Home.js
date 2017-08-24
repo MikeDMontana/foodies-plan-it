@@ -46,10 +46,6 @@ class Home extends Component {
       });
   }
 
-  goTo(route) {
-    this.props.history.replace(`/${route}`)
-  }
-
   checkBoxClicked(event) {
     const newGroupUser = event.target.value;
     this.state.usersArray.push(newGroupUser);
@@ -133,7 +129,7 @@ class Home extends Component {
             <NewMeal profile={this.state.profile} newParty={this.state.newParty} />
           </li>
         </ul>
-        <button onClick={this.goTo.bind(this, 'recipesearch')}>SEARCH RECIPES!</button>
+        <Link to='/recipesearch'>SEARCH RECIPES!</Link>
       </div>
     );
   }

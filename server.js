@@ -107,7 +107,7 @@ router.route('/parties')
             if (err)
               res.send(err);
 
-            res.json({ message: 'party updated!' });
+            res.json(party.meals);
           });
         });
       })
@@ -228,7 +228,7 @@ router.route('/users')
 router.route('/recipes/:recipeSearch')
 
 .get(function(req, res) {
-  var url = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?number=50&offset=0&query=' + req.params.recipeSearch;
+  var url = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addRecipeInformation=true&fillIngredients=false&instructionsRequired=true&limitLicense=false&number=50&offset=0&query=' + req.params.recipeSearch;
   req.pipe(request(url)).pipe(res);
 });
 

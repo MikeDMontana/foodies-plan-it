@@ -9,6 +9,7 @@ class RecipeSearch extends Component {
 
     this.state={
       recipe: {},
+      newMeal: this.props.newMeal,
       recipeSearch: "",
       searchResults: []
     };
@@ -28,11 +29,12 @@ class RecipeSearch extends Component {
     axios.get("/api/recipes/" + this.state.recipeSearch, {headers: config})
       .then((response) => {
         const searchResults = response.data.results;
+        console.log(searchResults);
         this.setState({
           searchResults: searchResults
         });
       });
-
+      console.log(this.props.newMeal._id);
     event.preventDefault();
   }
 
@@ -45,7 +47,11 @@ class RecipeSearch extends Component {
         </form>
         <ul>
           {this.state.searchResults.map(singleRecipe =>
-            <li key={singleRecipe.title}>{singleRecipe.title}</li>
+            <div>
+              <li key={singleRecipe.title}><img src={singleRecipe.image} /></li>
+              <li className="recipeTitle">{singleRecipe.title}</li>
+              <li className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
+            </div>
           )}
         </ul>
       </div>
