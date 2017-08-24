@@ -15,7 +15,6 @@ class Home extends Component {
       partyDescription: "",
       partyDate: "",
       partyList: [],
-      onOffFlag: false,
       profile: {},
       newParty: {},
       groupUsers: [],
@@ -94,7 +93,6 @@ class Home extends Component {
         const newParty = response.data[response.data.length - 1];
         this.setState({
           newParty: newParty,
-          onOffFlag: !this.state.onOffFlag,
         });
         console.log(this.state.newParty._id);
       });
@@ -129,7 +127,6 @@ class Home extends Component {
             <NewMeal profile={this.state.profile} newParty={this.state.newParty} />
           </li>
         </ul>
-        <Link to='/recipesearch'>SEARCH RECIPES!</Link>
       </div>
     );
   }

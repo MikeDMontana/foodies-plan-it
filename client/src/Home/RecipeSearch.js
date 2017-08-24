@@ -11,7 +11,8 @@ class RecipeSearch extends Component {
       recipe: {},
       newMeal: this.props.newMeal,
       recipeSearch: "",
-      searchResults: []
+      newRecipe: "",
+      searchResults: [],
     };
   }
 
@@ -34,8 +35,15 @@ class RecipeSearch extends Component {
           searchResults: searchResults
         });
       });
-      console.log(this.props.newMeal._id);
     event.preventDefault();
+  }
+
+  saveRecipe(event) {
+    const newRecipe = this.state.searchResults[event.target.value];
+    console.log(newRecipe);
+    this.setState({
+      newRecipe: newRecipe,
+    });
   }
 
   render() {
@@ -46,11 +54,12 @@ class RecipeSearch extends Component {
           <input type="submit" value="submit" />
         </form>
         <ul>
-          {this.state.searchResults.map(singleRecipe =>
+          {this.state.searchResults.map((singleRecipe, i) =>
             <div>
               <li key={singleRecipe.title}><img src={singleRecipe.image} /></li>
               <li className="recipeTitle">{singleRecipe.title}</li>
               <li className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
+              <li className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
             </div>
           )}
         </ul>

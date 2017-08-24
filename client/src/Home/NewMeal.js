@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import RecipeSearch from './RecipeSearch';
 
 class NewMeal extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class NewMeal extends Component {
       newMeal: "",
       mealTitle: "",
       mealDescription: "",
+      onOffFlag: false
     };
   }
 
@@ -40,6 +42,7 @@ class NewMeal extends Component {
       const newMeal = response.data[response.data.length - 1];
       this.setState({
         newMeal: newMeal,
+        onOffFlag: !this.state.onOffFlag
       });
       console.log(this.state.newMeal._id);
     })
@@ -59,6 +62,7 @@ class NewMeal extends Component {
           <input type="text" onChange={this.handleMealDescriptionChange.bind(this)} placeholder="New Meal Description" />
           <input type="submit" value="submit" />
         </form>
+        { this.state.onOffFlag && <RecipeSearch newMeal={this.state.newMeal} /> }
       </div>
     );
   }
