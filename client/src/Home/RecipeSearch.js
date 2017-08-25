@@ -9,7 +9,6 @@ class RecipeSearch extends Component {
 
     this.state={
       recipe: {},
-      newMeal: this.props.newMeal,
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
@@ -44,6 +43,22 @@ class RecipeSearch extends Component {
     this.setState({
       newRecipe: newRecipe,
     });
+    // dishType: String,
+    // name: String,
+    // ingredients: [],
+    // directions: String,
+    // upvotes: Number,
+    // downvotes: Number,
+    axios.put('/api/parties/' + this.props.newParty._id + '/meals/' + this.props.newMeal._id, {
+      dishType: "",
+      name: newRecipe.title,
+      upvotes: 0,
+      downvotes: 0
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   }
 
   render() {
