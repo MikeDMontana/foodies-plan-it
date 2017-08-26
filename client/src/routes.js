@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import NewMeal from './Home/NewMeal';
 import RecipeSearch from './Home/RecipeSearch';
 import Profile from './Profile/Profile';
+import ViewParty from './Home/ViewParty';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
 import history from './history';
@@ -25,6 +26,7 @@ export const makeMainRoutes = () => {
           <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route path="/newmeal" render={(props) => <NewMeal auth={auth} {...props} />} />
           <Route path="/recipesearch" render={(props) => <RecipeSearch auth={auth} {...props} />} />
+          <Route path="/viewparty" render={(props) => <ViewParty auth={auth} {...props} />} />
           <Route path="/profile" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/home"/>

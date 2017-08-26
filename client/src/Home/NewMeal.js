@@ -62,7 +62,7 @@ class NewMeal extends Component {
           <input type="text" onChange={this.handleMealDescriptionChange.bind(this)} placeholder="New Meal Description" />
           <input type="submit" value="submit" />
         </form>
-        { this.state.onOffFlag && <RecipeSearch newMeal={this.state.newMeal} newParty={this.props.newParty}/> }
+        { this.state.onOffFlag && <RecipeSearch newMeal={this.state.newMeal} newParty={this.props.newParty} profile={this.props.profile} history={this.props.history}/> }
       </div>
     );
   }

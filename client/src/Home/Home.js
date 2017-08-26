@@ -23,6 +23,10 @@ class Home extends Component {
     };
   }
 
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
+
   componentWillMount() {
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
@@ -112,7 +116,7 @@ class Home extends Component {
           <h3>Select Your Team of Foodies</h3>
             <ul>
               {this.state.groupUsers.map((groupUser, index) =>
-                <li><button value={groupUser._id} onClick={this.checkBoxClicked.bind(this)}>{groupUser.email}</button></li>
+                <li><button value={groupUser.email} onClick={this.checkBoxClicked.bind(this)}>{groupUser.email}</button></li>
               )}
             </ul>
 
@@ -127,6 +131,7 @@ class Home extends Component {
             <NewMeal profile={this.state.profile} newParty={this.state.newParty} />
           </li>
         </ul>
+        <button onClick={this.goTo.bind(this, 'viewparty')}>View Your Parties</button>
       </div>
     );
   }

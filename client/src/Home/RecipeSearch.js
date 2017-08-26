@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import history from '../history';
 
 class RecipeSearch extends Component {
   constructor(props) {
     super(props);
-
 
     this.state={
       recipe: {},
@@ -61,6 +60,10 @@ class RecipeSearch extends Component {
 
   }
 
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
+
   render() {
     return (
       <div>
@@ -68,6 +71,7 @@ class RecipeSearch extends Component {
           <input type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SEARCH FOR RECIPES" />
           <input type="submit" value="submit" />
         </form>
+        <button onClick={this.goTo.bind(this, 'partyboard')}>View Your Current Party</button>
         <ul>
           {this.state.searchResults.map((singleRecipe, i) =>
             <div>
