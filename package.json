@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon server.js",
+    "server": "node server.js",
     "client": "node start-client.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
