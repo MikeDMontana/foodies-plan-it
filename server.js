@@ -25,6 +25,10 @@ app.use((req, res, next) => {
   next();
 });
 
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 var port = process.env.PORT || 8080;  //set port
 
 // Routes for our API
