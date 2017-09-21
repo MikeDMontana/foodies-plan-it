@@ -14,8 +14,6 @@ class RecipeSearch extends Component {
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
-      viewBoardFlag: false,
-      currentParty: ""
     };
   }
 
@@ -66,7 +64,7 @@ class RecipeSearch extends Component {
   }
 
   viewPartyBoardSwitch() {
-    this.props.history.push('/partyboard', {userName: this.props.newParty._id});
+    this.props.history.push('/partyboard', {newPartyId: this.props.newParty._id});
   }
 
 
