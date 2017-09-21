@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
+import PartyBoard from './PartyBoard';
+import { BrowserHistory } from 'react-router-dom';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -8,9 +10,12 @@ class RecipeSearch extends Component {
 
     this.state={
       recipe: {},
+      newParty: this.props.newParty,
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
+      viewBoardFlag: false,
+      currentParty: ""
     };
   }
 
@@ -60,9 +65,10 @@ class RecipeSearch extends Component {
 
   }
 
-  goTo(route) {
-    this.props.history.replace(`/${route}`)
+  viewPartyBoardSwitch() {
+    this.props.history.push('/partyboard', {userName: this.props.newParty._id});
   }
+
 
   render() {
     return (
@@ -71,7 +77,7 @@ class RecipeSearch extends Component {
           <input type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SEARCH FOR RECIPES" />
           <input type="submit" value="submit" />
         </form>
-        <button onClick={this.goTo.bind(this, 'partyboard')}>View Your Current Party</button>
+        <button onClick={this.viewPartyBoardSwitch.bind(this)}>View Current Party</button>
         <ul>
           {this.state.searchResults.map((singleRecipe, i) =>
             <div>

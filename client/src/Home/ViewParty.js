@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import PartyBoard from './PartyBoard';
 
 class ViewParty extends React.Component {
   constructor(props) {

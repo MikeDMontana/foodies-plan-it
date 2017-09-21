@@ -128,7 +128,7 @@ class Home extends Component {
             </form>
           </li>
           <li className="PartyForms2">
-            <NewMeal profile={this.state.profile} newParty={this.state.newParty} />
+            <NewMeal profile={this.state.profile} history={this.props.history} newParty={this.state.newParty} />
           </li>
         </ul>
         <button onClick={this.goTo.bind(this, 'viewparty')}>View Your Parties</button>

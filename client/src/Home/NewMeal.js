@@ -9,13 +9,13 @@ class NewMeal extends Component {
 
     this.state={
       profile: this.props.profile,
+      history: this.props.history,
       newMeal: "",
       mealTitle: "",
       mealDescription: "",
       onOffFlag: false
     };
   }
-
 
   handleMealTitleChange(event) {
     const mealTitle = event.target.value;
@@ -56,6 +56,7 @@ class NewMeal extends Component {
   render(){
     return (
       <div>
+      {console.log(this.props.history)}
         <h1>Now Create Your First Meal, {this.props.profile.nickname}!</h1>
         <form onSubmit={this.handleMealSubmit.bind(this)}>
           <input type="text" onChange={this.handleMealTitleChange.bind(this)} placeholder="New Meal Title" />
