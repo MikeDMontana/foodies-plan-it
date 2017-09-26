@@ -7,7 +7,9 @@ class PartyBoard extends React.Component {
     super(props);
 
     this.state={
-      currentParty: {}
+      currentParty: {},
+      currentPartyMeals: [],
+      currentPartyDate: ""
     };
   }
 
@@ -16,7 +18,7 @@ class PartyBoard extends React.Component {
     axios.get("/api/parties/" + history.location.state.newPartyId)
       .then((response) => {
         const currentParty = response.data;  // set currentParty to response object which is the current party user just created
-
+        const currentPartyMeals = response.data.meals; // set currentPartyMeals to array of meals inside response data object
         // get year, month, and day from sliced up date string because javascript date is big long nasty string
         let currentPartyYear = currentParty.date.slice(0, 4);
         let currentPartyMonth = currentParty.date.slice(5, 7);
@@ -30,6 +32,7 @@ class PartyBoard extends React.Component {
 
         this.setState({
           currentParty: currentParty,
+          currentPartyMeals: currentPartyMeals,
           // currentPartyDate is reformated date using sliced string/variables
           currentPartyDate: months[currentPartyMonth-1] + " " + currentPartyDay + ", " + currentPartyYear
         });
@@ -44,6 +47,7 @@ class PartyBoard extends React.Component {
         <h2>{this.state.currentParty.title}</h2>
         <p className='partyDate'>{this.state.currentPartyDate}</p>
         <p>{this.state.currentParty.description}</p>
+        {console.log(this.state.currentPartyMeals)}
       </div>
     );
   }

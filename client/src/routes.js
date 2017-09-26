@@ -6,6 +6,7 @@ import NewMeal from './Home/NewMeal';
 import RecipeSearch from './Home/RecipeSearch';
 import Profile from './Profile/Profile';
 import ViewParty from './Home/ViewParty';
+import CreateParty from './Home/CreateParty';
 import PartyBoard from './Home/PartyBoard';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
@@ -29,6 +30,7 @@ export const makeMainRoutes = () => {
           <Route path="/recipesearch" render={(props) => <RecipeSearch auth={auth} history={history} {...props} />} />
           <Route path="/viewparty" render={(props) => <ViewParty auth={auth} history={history} {...props} />} />
           <Route path="/partyboard" render={(props) => <PartyBoard auth={auth} history={history} {...props} />} />
+          <Route path="/createParty" render={(props) => <CreateParty auth={auth} history={history} {...props} />} />
           <Route path="/profile" render={(props) => (
             !auth.isAuthenticated() ? (
               <Redirect to="/home"/>

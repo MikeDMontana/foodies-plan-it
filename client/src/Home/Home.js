@@ -11,22 +11,13 @@ class Home extends Component {
 
     this.state = {
       recipeImg: {},
-      partyTitle: "",
-      partyDescription: "",
-      partyDate: "",
-      partyList: [],
       profile: {},
-      newParty: {},
-      groupUsers: [],
-      groupUserId: "",
+      newGroupUser: "",
       usersArray: []
     };
   }
 
-  goTo(route) {
-    this.props.history.replace(`/${route}`)
-  }
-
+  // get users profile
   componentWillMount() {
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
@@ -39,68 +30,26 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
-    axios.get('/api/users')
-      .then((response) => {
-        const groupUsers = response.data;
-        this.setState({
-          groupUsers: groupUsers
-        });
-      });
+  // handle change of foodie email input
+  handleUserInputChange(event) {
+    const newGroupUser = event.target.value;
+    this.setState({
+      newGroupUser: newGroupUser
+    });
   }
 
-  checkBoxClicked(event) {
-    const newGroupUser = event.target.value;
-    this.state.usersArray.push(newGroupUser);
+  // save list of foodies that get input
+  handleUserInputSubmit(event) {
+    this.state.usersArray.push(this.state.newGroupUser);
 
     this.setState({
       usersArray: this.state.usersArray
     });
-    console.log(this.state.usersArray);
-  }
-
-  handleTitleChange(event) {
-    const partyTitle = event.target.value;
-    this.setState({
-      partyTitle: partyTitle
-    });
-  }
-
-  handleDescriptionChange(event) {
-    const partyDescription = event.target.value;
-    this.setState({
-      partyDescription: partyDescription
-    });
-  }
-
-  handleDateChange(event) {
-    const partyDate = event.target.value;
-    this.setState({
-      partyDate: partyDate
-    })
-  }
-
-  handleSubmit(event) {
-    console.log(this.state.usersArray);
-    axios.post('/api/parties/', {
-      title: this.state.partyTitle,
-      description: this.state.partyDescription,
-      date: this.state.partyDate,
-      users: this.state.usersArray
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    axios.get('/api/parties')
-      .then((response) => {
-        const newParty = response.data[response.data.length - 1];
-        this.setState({
-          newParty: newParty,
-        });
-        console.log(this.state.newParty._id);
-      });
     event.preventDefault();
+  }
+
+  goToPartyForm() {
+    this.props.history.push('/createParty', {usersArray: this.state.usersArray, profile: this.state.profile});
   }
 
 
@@ -111,27 +60,16 @@ class Home extends Component {
         <h1>Foodies Plan.It</h1>
         <p>Hi {this.state.profile.nickname}! <br />
            Please get started by creating a party.</p>
-        <ul className="NewPartyForms">
-          <li className="PartyForms1">
-          <h3>Select Your Team of Foodies</h3>
-            <ul>
-              {this.state.groupUsers.map((groupUser, index) =>
-                <li><button value={groupUser.email} onClick={this.checkBoxClicked.bind(this)}>{groupUser.email}</button></li>
-              )}
-            </ul>
-
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Your Party Title..." value={this.state.partyTitle}/>
-              <input type="text" onChange={this.handleDescriptionChange.bind(this)} placeholder="Your Party Description" value={this.state.partyDescription}/>
-              <input type="date" onChange={this.handleDateChange.bind(this)} name="Party Date" />
-              <input type="submit" value="submit" />
-            </form>
-          </li>
-          <li className="PartyForms2">
-            <NewMeal profile={this.state.profile} history={this.props.history} newParty={this.state.newParty} />
-          </li>
+        <form onSubmit={this.handleUserInputSubmit.bind(this)}>
+          <input type="text" onChange={this.handleUserInputChange.bind(this)} placeholder="INPUT FOODIE EMAILS HERE   >" />
+          <input type="submit" value=">"/>
+        </form>
+        <ul>
+          {this.state.usersArray.map((user, index) =>
+              <li>{user}</li>
+          )}
         </ul>
-        <button onClick={this.goTo.bind(this, 'viewparty')}>View Your Parties</button>
+        <button onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button>
       </div>
     );
   }

@@ -44,7 +44,7 @@ class ViewParty extends React.Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
-        <h1>Your Current Party</h1>
+        <h1>All Of Your Parties</h1>
         {console.log(this.state.userParties)}
         <ul>
         {this.state.userParties.map((party) =>
