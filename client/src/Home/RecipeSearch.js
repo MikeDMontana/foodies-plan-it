@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
 import PartyBoard from './PartyBoard';
-import { BrowserHistory } from 'react-router-dom';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -10,7 +9,6 @@ class RecipeSearch extends Component {
 
     this.state={
       recipe: {},
-      newParty: this.props.newParty,
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
@@ -51,7 +49,7 @@ class RecipeSearch extends Component {
     // directions: String,
     // upvotes: Number,
     // downvotes: Number,
-    axios.put('/api/parties/' + this.props.newParty._id + '/meals/' + this.props.newMeal._id, {
+    axios.put('/api/parties/' + history.location.state.newParty._id + '/meals/' + history.location.state.newMeal._id, {
       dishType: "",
       name: newRecipe.title,
       upvotes: 0,

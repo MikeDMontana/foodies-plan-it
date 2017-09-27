@@ -11,7 +11,6 @@ class CreateParty extends React.Component {
 
     this.state={
       profile: this.props.profile,
-      history: this.props.history,
       partyTitle: "",
       partyDescription: "",
       partyDate: "",
@@ -83,7 +82,6 @@ class CreateParty extends React.Component {
   render() {
     return(
       <div>
-        {console.log(this.state.newParty)}
         <h2>Now Create A Party Where You Will All Meet Up!</h2>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" onChange={this.handleTitleChange.bind(this)} placeholder="Your Party Title..." value={this.state.partyTitle}/>

@@ -9,9 +9,7 @@ class NewMeal extends Component {
   constructor(props) {
     super(props);
 
-    this.state={
-      profile: this.props.profile,
-      history: this.props.history,
+    this.state= {
       newMeal: "",
       mealTitle: "",
       mealDescription: "",
@@ -35,9 +33,8 @@ class NewMeal extends Component {
   handleMealSubmit(event) {
     // When Meal is Submitted Put Meal into the meals model for each user selected
     // then response is party.meals. Set the most recent meal to newMeal
-    event.preventDefault();
-
-    axios.put('/api/parties/' + this.props.newParty._id, {
+    console.log(history.location.state.newParty);
+    axios.put('/api/parties/' + history.location.state.newParty._id, {
       title: this.state.mealTitle,
       description: this.state.mealDescription,
     })
@@ -46,31 +43,28 @@ class NewMeal extends Component {
       this.setState({
         newMeal: newMeal,
       });
-      console.log(this.state.newMeal._id);
     })
     .catch(function (error) {
       console.log(error);
     });
 
-    this.goToRecipeSearch();
+    event.preventDefault();
   }
 
   goToRecipeSearch() {
-    this.props.history.push('/recipesearch', {newMeal: this.state.newMeal, newParty: history.location.state.newParty, profile: this.props.profile, history:this.props.history});
+    this.props.history.push('/recipesearch', {newMeal: this.state.newMeal, newParty: history.location.state.newParty, profile: history.location.state.profile});
   }
 
   render(){
     return (
       <div>
-      {console.log(history.location.state.newParty)}
-      {console.log(this.props.profile)}
-
       <h2>Make Your First Meal So You Can Add Recipes That Get Voted On</h2>
         <form onSubmit={this.handleMealSubmit.bind(this)}>
           <input type="text" onChange={this.handleMealTitleChange.bind(this)} placeholder="New Meal Title" />
           <input type="text" onChange={this.handleMealDescriptionChange.bind(this)} placeholder="New Meal Description" />
           <input type="submit" value="submit" />
         </form>
+      <button onClick={this.goToRecipeSearch.bind(this)}>></button>
       </div>
     );
   }
