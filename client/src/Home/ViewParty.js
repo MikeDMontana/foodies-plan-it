@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import PartyBoard from './PartyBoard';
 
 class ViewParty extends React.Component {
   constructor(props) {
@@ -41,11 +40,11 @@ class ViewParty extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+    // const { isAuthenticated } = this.props.auth;
     return (
       <div>
         <h1>All Of Your Parties</h1>
-        {console.log(this.state.userParties)}
+        {console.log(this.state.userParties.party)}
         <ul>
         {this.state.userParties.map((party) =>
           <div>

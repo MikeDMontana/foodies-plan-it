@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import RecipeSearch from './RecipeSearch';
 import history from '../history';
-
 
 class NewMeal extends Component {
   constructor(props) {
@@ -33,7 +30,6 @@ class NewMeal extends Component {
   handleMealSubmit(event) {
     // When Meal is Submitted Put Meal into the meals model for each user selected
     // then response is party.meals. Set the most recent meal to newMeal
-    console.log(history.location.state.newParty);
     axios.put('/api/parties/' + history.location.state.newParty._id, {
       title: this.state.mealTitle,
       description: this.state.mealDescription,

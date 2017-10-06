@@ -1,35 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import NewMeal from './NewMeal';
-import { Link } from 'react-router-dom';
 import history from '../history';
-
 
 class CreateParty extends React.Component {
   constructor(props) {
     super(props);
 
     this.state={
-      profile: this.props.profile,
       partyTitle: "",
       partyDescription: "",
       partyDate: "",
       partyList: [],
       newParty: {}
     };
-  }
-
-  // get users profile
-  componentWillMount() {
-    this.setState({ profile: {} });
-    const { userProfile, getProfile } = this.props.auth;
-    if (!userProfile) {
-      getProfile((err, profile) => {
-        this.setState({ profile });
-      });
-    } else {
-      this.setState({ profile: userProfile });
-    }
   }
 
   handleTitleChange(event) {

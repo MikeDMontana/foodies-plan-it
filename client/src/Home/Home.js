@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import NewMeal from './NewMeal';
-import GroupUsersSelect from './GroupUsersSelect';
+import CreateParty from './CreateParty';
 
 class Home extends Component {
 
@@ -13,7 +10,8 @@ class Home extends Component {
       recipeImg: {},
       profile: {},
       newGroupUser: "",
-      usersArray: []
+      usersArray: [],
+      goToPartyFormFlag: false
     };
   }
 
@@ -49,12 +47,15 @@ class Home extends Component {
   }
 
   goToPartyForm() {
-    this.props.history.push('/createParty', {usersArray: this.state.usersArray, profile: this.state.profile});
+    // this.props.history.push('/createParty', {usersArray: this.state.usersArray, profile: this.state.profile});
+    this.setState({
+      goToPartyFormFlag: true
+    });
   }
 
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+    //const { isAuthenticated } = this.props.auth;
     return (
       <div className="container">
         <h1>Foodies Plan.It</h1>
@@ -70,6 +71,7 @@ class Home extends Component {
           )}
         </ul>
         <button onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button>
+        {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} />}
       </div>
     );
   }

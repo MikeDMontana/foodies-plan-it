@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
-import PartyBoard from './PartyBoard';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -62,13 +61,14 @@ class RecipeSearch extends Component {
   }
 
   viewPartyBoardSwitch() {
-    this.props.history.push('/partyboard', {newPartyId: this.props.newParty._id});
+    this.props.history.push('/partyboard', {newPartyId: history.location.state.newParty._id});
   }
 
 
   render() {
     return (
       <div>
+      {console.log(history.location.state.newParty._id)}
         <form onSubmit={this.searchSubmitHandler.bind(this)}>
           <input type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SEARCH FOR RECIPES" />
           <input type="submit" value="submit" />
@@ -77,7 +77,7 @@ class RecipeSearch extends Component {
         <ul>
           {this.state.searchResults.map((singleRecipe, i) =>
             <div>
-              <li key={singleRecipe.title}><img src={singleRecipe.image} /></li>
+              <li key={singleRecipe.title}><img src={singleRecipe.image} alt="recipe search result"/></li>
               <li className="recipeTitle">{singleRecipe.title}</li>
               <li className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
               <li className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>

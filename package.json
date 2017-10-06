@@ -16,7 +16,7 @@
     "mongoose": "^4.11.6",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.5.4",
+    "react-dom": "^15.6.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-transition": "^1.0.1",

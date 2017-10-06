@@ -25,8 +25,8 @@ export const makeMainRoutes = () => {
     <Router history={history} component={App}>
         <div>
           <Route path="/" render={(props) => <App auth={auth} {...props} />} />
-          <Route path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route path="/newmeal" render={(props) => <NewMeal auth={auth} {...props} />} />
+          <Route path="/home" render={(props) => <Home auth={auth} history={history} {...props} />} />
+          <Route path="/newmeal" render={(props) => <NewMeal auth={auth} history={history} {...props} />} />
           <Route path="/viewparty" render={(props) => <ViewParty auth={auth} history={history} {...props} />} />
           <Route path="/partyboard" render={(props) => <PartyBoard auth={auth} history={history} {...props} />} />
           <Route path="/createParty" render={(props) => <CreateParty auth={auth} history={history} {...props} />} />
