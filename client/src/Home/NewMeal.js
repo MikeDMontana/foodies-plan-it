@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
+import RecipeSearch from './RecipeSearch';
 
 class NewMeal extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class NewMeal extends Component {
       newMeal: "",
       mealTitle: "",
       mealDescription: "",
+      goToRecipeSearchFlag: false
     };
   }
 
@@ -30,7 +32,7 @@ class NewMeal extends Component {
   handleMealSubmit(event) {
     // When Meal is Submitted Put Meal into the meals model for each user selected
     // then response is party.meals. Set the most recent meal to newMeal
-    axios.put('/api/parties/' + history.location.state.newParty._id, {
+    axios.put('/api/parties/' + this.props.newParty._id, {
       title: this.state.mealTitle,
       description: this.state.mealDescription,
     })
@@ -48,7 +50,10 @@ class NewMeal extends Component {
   }
 
   goToRecipeSearch() {
-    this.props.history.push('/recipesearch', {newMeal: this.state.newMeal, newParty: history.location.state.newParty, profile: history.location.state.profile});
+    // this.props.history.push('/recipesearch', {newMeal: this.state.newMeal, newParty: history.location.state.newParty, profile: history.location.state.profile});
+    this.setState({
+      goToRecipeSearchFlag: true
+    });
   }
 
   render(){
@@ -61,6 +66,7 @@ class NewMeal extends Component {
           <input type="submit" value="submit" />
         </form>
       <button onClick={this.goToRecipeSearch.bind(this)}>></button>
+      {this.state.goToRecipeSearchFlag && <RecipeSearch newMeal={this.state.newMeal} newParty={this.props.newParty} profile={this.props.profile} />}
       </div>
     );
   }

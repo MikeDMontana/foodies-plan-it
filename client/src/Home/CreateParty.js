@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import history from '../history';
+import NewMeal from './NewMeal';
 
 class CreateParty extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class CreateParty extends React.Component {
       partyDescription: "",
       partyDate: "",
       partyList: [],
-      newParty: {}
+      newParty: {},
+      goToMealFormFlag: false
     };
   }
 
@@ -41,7 +43,7 @@ class CreateParty extends React.Component {
       title: this.state.partyTitle,
       description: this.state.partyDescription,
       date: this.state.partyDate,
-      users: history.location.state.usersArray
+      users: this.props.usersArray
     })
       .catch(function (error) {
         console.log(error);
@@ -58,7 +60,10 @@ class CreateParty extends React.Component {
   }
 
   goToMealForm() {
-    this.props.history.push('/newmeal', {profile: this.props.profile, newParty: this.state.newParty});
+    // this.props.history.push('/newmeal', {profile: this.props.profile, newParty: this.state.newParty});
+    this.setState({
+      goToMealFormFlag: true
+    });
   }
 
 
@@ -73,6 +78,7 @@ class CreateParty extends React.Component {
           <input type="submit" value="submit" />
         </form>
         <button onClick={this.goToMealForm.bind(this)}>></button>
+        {this.state.goToMealFormFlag && <NewMeal profile={this.props.profile} newParty={this.state.newParty} />}
       </div>
     );
   }

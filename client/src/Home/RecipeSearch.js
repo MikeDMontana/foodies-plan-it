@@ -48,7 +48,7 @@ class RecipeSearch extends Component {
     // directions: String,
     // upvotes: Number,
     // downvotes: Number,
-    axios.put('/api/parties/' + history.location.state.newParty._id + '/meals/' + history.location.state.newMeal._id, {
+    axios.put('/api/parties/' + this.props.newParty._id + '/meals/' + this.props.newMeal._id, {
       dishType: "",
       name: newRecipe.title,
       upvotes: 0,
@@ -68,7 +68,7 @@ class RecipeSearch extends Component {
   render() {
     return (
       <div>
-      {console.log(history.location.state.newParty._id)}
+      {console.log(this.props.newParty._id)}
         <form onSubmit={this.searchSubmitHandler.bind(this)}>
           <input type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SEARCH FOR RECIPES" />
           <input type="submit" value="submit" />
