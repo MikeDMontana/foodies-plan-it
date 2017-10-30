@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
+import {TweenMax} from 'gsap';
+import GSAP from 'react-gsap-enhancer';
+import PartyBoard from './PartyBoard';
+
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -61,11 +65,12 @@ class RecipeSearch extends Component {
   }
 
   viewPartyBoardSwitch() {
-    this.props.history.push('/partyboard', {newPartyId: history.location.state.newParty._id});
+    this.props.history.push('/partyboard', {newPartyId: this.props.newParty._id});
   }
 
 
   render() {
+    console.log(this.props.history);
     return (
       <div>
       {console.log(this.props.newParty._id)}

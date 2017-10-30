@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
 import RecipeSearch from './RecipeSearch';
+import {TweenMax} from 'gsap';
+import GSAP from 'react-gsap-enhancer';
+import CreateParty from './CreateParty';
 
 class NewMeal extends Component {
   constructor(props) {
@@ -54,6 +57,7 @@ class NewMeal extends Component {
     this.setState({
       goToRecipeSearchFlag: true
     });
+    this.props.event;
   }
 
   render(){
@@ -66,7 +70,7 @@ class NewMeal extends Component {
           <input type="submit" value="submit" />
         </form>
       <button onClick={this.goToRecipeSearch.bind(this)}>></button>
-      {this.state.goToRecipeSearchFlag && <RecipeSearch newMeal={this.state.newMeal} newParty={this.props.newParty} profile={this.props.profile} />}
+        {this.state.goToRecipeSearchFlag && <RecipeSearch newMeal={this.state.newMeal} history={this.props.history} newParty={this.props.newParty} profile={this.props.profile} />}
       </div>
     );
   }

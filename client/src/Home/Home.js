@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import CreateParty from './CreateParty';
+import {TweenMax} from 'gsap';
+import GSAP from 'react-gsap-enhancer';
+import history from '../history';
 
 class Home extends Component {
 
@@ -14,6 +17,7 @@ class Home extends Component {
       goToPartyFormFlag: false
     };
   }
+
 
   // get users profile
   componentWillMount() {
@@ -71,7 +75,7 @@ class Home extends Component {
           )}
         </ul>
         <button onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button>
-        {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} />}
+          {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} history={this.props.history}/>}
       </div>
     );
   }

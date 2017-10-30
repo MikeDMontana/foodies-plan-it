@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import history from '../history';
 import NewMeal from './NewMeal';
+import {TweenMax} from 'gsap';
+import GSAP from 'react-gsap-enhancer';
 
 class CreateParty extends React.Component {
   constructor(props) {
@@ -78,7 +80,7 @@ class CreateParty extends React.Component {
           <input type="submit" value="submit" />
         </form>
         <button onClick={this.goToMealForm.bind(this)}>></button>
-        {this.state.goToMealFormFlag && <NewMeal profile={this.props.profile} newParty={this.state.newParty} />}
+          {this.state.goToMealFormFlag && <NewMeal history={this.props.history} profile={this.props.profile} newParty={this.state.newParty} />}
       </div>
     );
   }
