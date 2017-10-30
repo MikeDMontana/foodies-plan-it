@@ -4,7 +4,7 @@ var RecipeSchema = mongoose.Schema({
   dishType: String,
   name: String,
   ingredients: [],
-  directions: String,
+  directions: [],
   upvotes: Number,
   downvotes: Number,
 });

@@ -5,7 +5,6 @@ import {TweenMax} from 'gsap';
 import GSAP from 'react-gsap-enhancer';
 import PartyBoard from './PartyBoard';
 
-
 class RecipeSearch extends Component {
   constructor(props) {
     super(props);
@@ -42,21 +41,35 @@ class RecipeSearch extends Component {
 
   saveRecipe(event) {
     const newRecipe = this.state.searchResults[event.target.value];
-    console.log(newRecipe);
+    const stepsArr = [];
+    const ingredientsArr = [];
+
     this.setState({
       newRecipe: newRecipe,
     });
+
+    newRecipe.analyzedInstructions.map((instruction) => {
+      instruction.steps.map((el) => {
+        stepsArr.push(el.step);
+      });
+    });
+
+    newRecipe.analyzedInstructions.map((instruction) => {
+      instruction.steps.map((el) => {
+        el.ingredients.map((ingredient) => {
+          ingredientsArr.push(ingredient.name);
+        });
+      });
+    });
+
     // dishType: String,
-    // name: String,
-    // ingredients: [],
-    // directions: String,
-    // upvotes: Number,
-    // downvotes: Number,
     axios.put('/api/parties/' + this.props.newParty._id + '/meals/' + this.props.newMeal._id, {
       dishType: "",
       name: newRecipe.title,
       upvotes: 0,
-      downvotes: 0
+      downvotes: 0,
+      ingredients: ingredientsArr,
+      directions: stepsArr
     })
     .catch(function (error) {
       console.log(error);
