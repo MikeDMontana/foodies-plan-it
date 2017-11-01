@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import CreateParty from './CreateParty';
-import {TweenMax} from 'gsap';
-import GSAP from 'react-gsap-enhancer';
 import history from '../history';
 
 class Home extends Component {
@@ -61,21 +59,24 @@ class Home extends Component {
   render() {
     //const { isAuthenticated } = this.props.auth;
     return (
-      <div className="container">
-        <h1>Foodies Plan.It</h1>
-        <p>Hi {this.state.profile.nickname}! <br />
-           Please get started by creating a party.</p>
-        <form onSubmit={this.handleUserInputSubmit.bind(this)}>
-          <input type="text" onChange={this.handleUserInputChange.bind(this)} placeholder="INPUT FOODIE EMAILS HERE   >" />
-          <input type="submit" value=">"/>
-        </form>
-        <ul>
-          {this.state.usersArray.map((user, index) =>
-              <li>{user}</li>
-          )}
-        </ul>
-        <button onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button>
-          {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} history={this.props.history}/>}
+      <div className="homeContainer">
+        <div className="homeLeft">
+          <h2>Start By Inputting The Emails Of Your Foodie Friends</h2>
+          <img src="img/homeCompCharacters.png" alt="cartoon food characters - foodies plan it" />
+        </div>
+        <div className="homeRight">
+          <form className="emailsInputForm" onSubmit={this.handleUserInputSubmit.bind(this)}>
+            <input className="emailsInputField" ype="text" onChange={this.handleUserInputChange.bind(this)} placeholder="INPUT FOODIE EMAILS HERE" />
+            <input className="emailsInputSubmit" type="submit" value=">"/>
+          </form>
+          <ul className="userEmailList">
+            {this.state.usersArray.map((user, index) =>
+                <li className="fa fa-check"><span className="userEmailListItem"> {user}</span></li>
+            )}
+          </ul>
+            {(this.state.usersArray.length > 0) ? <button className="homePartyBtn" onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button> : ""}
+            {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} history={this.props.history}/>}
+        </div>
       </div>
     );
   }

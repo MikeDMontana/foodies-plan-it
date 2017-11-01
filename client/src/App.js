@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
-import './App.css';
 
 class App extends Component {
+
+  componentWillMount() {
+    this.setState({ profile: {} });
+    const { userProfile, getProfile } = this.props.auth;
+    if (!userProfile) {
+      getProfile((err, profile) => {
+        this.setState({ profile });
+      });
+    } else {
+      this.setState({ profile: userProfile });
+    }
+  }
 
   goTo(route) {
     this.props.history.replace(`/${route}`)
@@ -18,59 +28,50 @@ class App extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
+    const { profile } = this.state;
 
     return (
-      <div>
-        <Navbar fluid>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <a href="#">Auth0 - React</a>
-            </Navbar.Brand>
-            <Button
-              bsStyle="primary"
-              className="btn-margin"
-              onClick={this.goTo.bind(this, 'home')}
-            >
-              Home
-            </Button>
-            {
-              !isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.login.bind(this)}
-                  >
-                    Log In
-                  </Button>
-                )
-            }
-            {
-              isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.goTo.bind(this, 'profile')}
-                  >
-                    Profile
-                  </Button>
-                )
-            }
-            {
-              isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.logout.bind(this)}
-                  >
-                    Log Out
-                  </Button>
-                )
-            }
-          </Navbar.Header>
-        </Navbar>
-        <div className="container">
-          {this.props.children}
+      <div className="fullPageContainer">
+        <div className="navBarContainer">
+          <a href="#" alt="Learn About The Developer">ABOUT</a>
+          <img src="img/logo.png" alt="foodies plan it logo" />
+          <div className="navDropdown">
+            <img className="navProfilePic" alt="Click for more options" src={profile.picture} />
+            <div className="navDropdownContent">
+              <button className="navBtn" onClick={this.goTo.bind(this, 'home')}>
+                Home
+              </button>
+              {
+                !isAuthenticated() && (
+                    <button className="navBtn"
+                      onClick={this.login.bind(this)}
+                    >
+                      Log In
+                    </button>
+                  )
+              }
+              {
+                isAuthenticated() && (
+                    <button className="navBtn"
+                      onClick={this.goTo.bind(this, 'profile')}
+                    >
+                      Profile
+                    </button>
+                  )
+              }
+              {
+                isAuthenticated() && (
+                    <button className="navBtn"
+                      onClick={this.logout.bind(this)}
+                    >
+                      Log Out
+                    </button>
+                  )
+              }
+            </div>
+          </div>
         </div>
+        {this.props.children}
       </div>
     );
   }

@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body, html, p, h1, h2, h3, h4, h5, h6, a, span {
+  font-family: Lato;
+}
+
+a {
+  text-decoration: none;
+}
+
 .switch-wrapper {
   position: relative;
 }
@@ -5,3 +15,179 @@
 .switch-wrapper > div {
   position: absolute;
 }
+
+.navBarContainer {
+  background-color: black;
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.5em 8em 1.5em 8em;
+  border-bottom: 4px solid #d48600;
+  align-items: center;
+}
+
+.navBarContainer a {
+  color: #f89d00;
+  font-family: Lato, sans-serif;
+  font-weight: 600;
+  border-top: 4px solid #f89d00;
+  padding-top: 2em;
+  padding-top: .5em;
+  font-size: large;
+}
+
+.navDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navDropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.navDropdown:hover .navDropdownContent {
+    display: block;
+}
+
+.navProfilePic {
+  border-radius: 50%;
+  height: 62px;
+  border: 3px solid #f89d00;
+}
+
+.data-reactroot {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.homeContainer {
+  background-image: url("../img/mainBkgd.jpg");
+  background-size: cover;
+  height: 80vh;
+  width: 100%;
+  margin: 0;
+  padding: 5em 10em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.homePartyBtn {
+  width: 50%;
+}
+
+.homeLeft {
+  width: 50%;
+  border-right: 1px solid white;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.homeLeft h2 {
+  font-size: large;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 3em;
+  color: white;
+  letter-spacing: .05em;
+}
+
+.homeRight {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.emailsInputForm {
+  width: 80%;
+  text-align: center;
+  position: relative;
+}
+
+.emailsInputField {
+  height: 80px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgba(25, 140, 152, .8);
+  border-radius: .5em;
+  color: white;
+  text-transform: uppercase;
+  border: 3px solid #d48600;
+  text-align: center;
+  font-size: large;
+}
+
+.emailsInputSubmit {
+  position: absolute;
+  right: 2em;
+  top: 25px;
+  color: white;
+  background-color: transparent;
+  border: 0;
+  font-size: large;
+  font-weight: 600;
+}
+
+.userEmailList li {
+  color: lightgray;
+  font-size: large;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: .3em 0em;
+}
+
+.userEmailListItem {
+  color: lightgray;
+  margin: 1em 0em;
+}
+
+.userEmailList {
+  display: flex;
+  flex-direction: column;
+  margin: 2em 0em;
+}
+
+.homePartyBtn {
+  height: 80px;
+  width: 60%;
+  margin: 0 auto;
+  background-color: transparent;
+  border-radius: .5em;
+  color: #d48600;
+  text-transform: uppercase;
+  border: 3px solid #d48600;
+  text-align: center;
+  font-size: large;
+}
+
+/*<<<<<<Styles for Input Placeholder Text>>>>>>>>*/
+input::-webkit-input-placeholder {
+color: rgba(255, 255, 255, 0.6) !important;
+}
+input:-moz-placeholder { /* Firefox 18- */
+color: rgba(255, 255, 255, 0.6) !important;
+}
+input::-moz-placeholder {  /* Firefox 19+ */
+color: rgba(255, 255, 255, 0.6) !important;
+}
+input:-ms-input-placeholder {
+color: rgba(255, 255, 255, 0.6) !important;
+}
+/*<<<<<<Styles for Input Placeholder Text>>>>>>>>*/
