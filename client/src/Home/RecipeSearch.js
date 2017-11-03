@@ -63,7 +63,7 @@ class RecipeSearch extends Component {
     });
 
     // dishType: String,
-    axios.put('/api/parties/' + this.props.newParty._id + '/meals/' + this.props.newMeal._id, {
+    axios.put('/api/parties/' + history.location.state.newParty._id + '/meals/' + history.location.state.newMeal._id, {
       dishType: "",
       name: newRecipe.title,
       upvotes: 0,
@@ -78,30 +78,34 @@ class RecipeSearch extends Component {
   }
 
   viewPartyBoardSwitch() {
-    this.props.history.push('/partyboard', {newPartyId: this.props.newParty._id});
+    this.props.history.push('/partyboard', {newPartyId: history.location.state.newParty._id});
   }
 
 
   render() {
-    console.log(this.props.history);
     return (
-      <div>
-      {console.log(this.props.newParty._id)}
-        <form onSubmit={this.searchSubmitHandler.bind(this)}>
-          <input type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SEARCH FOR RECIPES" />
-          <input type="submit" value="submit" />
-        </form>
-        <button onClick={this.viewPartyBoardSwitch.bind(this)}>View Current Party</button>
-        <ul>
-          {this.state.searchResults.map((singleRecipe, i) =>
-            <div>
-              <li key={singleRecipe.title}><img src={singleRecipe.image} alt="recipe search result"/></li>
-              <li className="recipeTitle">{singleRecipe.title}</li>
-              <li className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
-              <li className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
-            </div>
-          )}
-        </ul>
+      <div className="homeContainer">
+        <div className="homeLeft">
+          <h2>Yay! Search For Awesome Recipes <br /><span><em>(By Ingredient)</em></span></h2>
+          <img className="recipeSearchCharacters" src="img/recipeSearchCompCharacters.png" alt="cartoon food characters, search for cool recipes - foodies plan it" />
+          <form className="emailsInputForm" onSubmit={this.searchSubmitHandler.bind(this)}>
+            <input className="emailsInputField" type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SPICY CHICKEN..." />
+            <input className="emailsInputSubmit" type="submit" value=">" />
+          </form>
+        </div>
+        <div className="homeRight">
+          <button onClick={this.viewPartyBoardSwitch.bind(this)}>View Current Party</button>
+          <ul>
+            {this.state.searchResults.map((singleRecipe, i) =>
+              <div>
+                <li key={singleRecipe.image}><img src={singleRecipe.image} alt="recipe search result"/></li>
+                <li key={singleRecipe.title}className="recipeTitle">{singleRecipe.title}</li>
+                <li key={singleRecipe.sourceName}className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
+                <li key={i} className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
+              </div>
+            )}
+          </ul>
+        </div>
       </div>
     );
   }

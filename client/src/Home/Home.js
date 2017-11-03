@@ -49,12 +49,13 @@ class Home extends Component {
   }
 
   goToPartyForm() {
-    // this.props.history.push('/createParty', {usersArray: this.state.usersArray, profile: this.state.profile});
+    this.props.history.push('/createParty', {usersArray: this.state.usersArray, profile: this.state.profile});
     this.setState({
       goToPartyFormFlag: true
     });
   }
 
+// this.state.goToPartyFormFlag <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} history={this.props.history}/>
 
   render() {
     //const { isAuthenticated } = this.props.auth;
@@ -66,7 +67,7 @@ class Home extends Component {
         </div>
         <div className="homeRight">
           <form className="emailsInputForm" onSubmit={this.handleUserInputSubmit.bind(this)}>
-            <input className="emailsInputField" ype="text" onChange={this.handleUserInputChange.bind(this)} placeholder="INPUT FOODIE EMAILS HERE" />
+            <input className="emailsInputField" type="text" onChange={this.handleUserInputChange.bind(this)} placeholder="INPUT FOODIE EMAILS HERE" />
             <input className="emailsInputSubmit" type="submit" value=">"/>
           </form>
           <ul className="userEmailList">
@@ -75,7 +76,6 @@ class Home extends Component {
             )}
           </ul>
             {(this.state.usersArray.length > 0) ? <button className="homePartyBtn" onClick={this.goToPartyForm.bind(this)}>GREAT, LETS PLAN A PARTY!</button> : ""}
-            {this.state.goToPartyFormFlag && <CreateParty usersArray={this.state.usersArray} profile={this.state.profile} history={this.props.history}/>}
         </div>
       </div>
     );

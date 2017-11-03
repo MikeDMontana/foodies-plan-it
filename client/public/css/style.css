@@ -134,6 +134,23 @@ a {
   font-size: large;
 }
 
+.datesInputField, .newMealDescriptionField {
+  height: 80px;
+  width: 75%;
+  margin: 0 auto;
+  background-color: rgba(25, 140, 152, .8);
+  border-radius: .5em;
+  color: white;
+  text-transform: uppercase;
+  border: 3px solid #d48600;
+  text-align: center;
+  font-size: large;
+}
+
+input.datesInputField, input.newMealDescriptionField {
+  margin-right: 5%;
+}
+
 .emailsInputSubmit {
   position: absolute;
   right: 2em;
@@ -177,6 +194,47 @@ a {
   font-size: large;
 }
 
+.createPartySubmit, .newMealSubmit {
+  height: 80px;
+  width: 20%;
+  margin: 0 auto;
+  background-color: transparent;
+  border-radius: .5em;
+  color: #d48600;
+  text-transform: uppercase;
+  border: 3px solid #d48600;
+  text-align: center;
+  font-size: large;
+}
+
+.goToPartyBtn, .goToRecipeSearchBtn {
+  height: 80px;
+  width: 60%;
+  margin: 1em auto;
+  background-color: transparent;
+  border-radius: .5em;
+  color: #d48600;
+  text-transform: uppercase;
+  border: 3px solid #d48600;
+  text-align: center;
+  font-size: large;
+}
+
+.createPartyForm input, .newMealForm input {
+  margin-top: 1em;
+}
+
+.recipeSearchCharacters {
+  margin-bottom: -8px;
+  z-index: 100;
+}
+
+.homeLeft span {
+  font-size: small;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: lightgray;
+}
 /*<<<<<<Styles for Input Placeholder Text>>>>>>>>*/
 input::-webkit-input-placeholder {
 color: rgba(255, 255, 255, 0.6) !important;
