@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
-import {TweenMax} from 'gsap';
+import { TimelineMax } from 'gsap';
 import GSAP from 'react-gsap-enhancer';
 import PartyBoard from './PartyBoard';
 
@@ -14,6 +14,7 @@ class RecipeSearch extends Component {
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
+      yposition: 0
     };
   }
 
@@ -77,6 +78,18 @@ class RecipeSearch extends Component {
 
   }
 
+  downArrowHandler() {
+    const recipeResultsList = new TimelineMax();
+    recipeResultsList.to(".recipeGrid", 2, {y:this.state.yposition - 200, force3D:true}, 0.01);
+    this.setState({yposition: this.state.yposition-200});
+  }
+
+  upArrowHandler() {
+    const recipeResultsListUp = new TimelineMax();
+    recipeResultsListUp.to(".recipeGrid", 2, {y:this.state.yposition + 200, force3D:true}, 0.01);
+    this.setState({yposition: this.state.yposition+200});
+  }
+
   viewPartyBoardSwitch() {
     this.props.history.push('/partyboard', {newPartyId: history.location.state.newParty._id});
   }
@@ -87,6 +100,7 @@ class RecipeSearch extends Component {
       <div className="homeContainer">
         <div className="homeLeft">
           <h2>Yay! Search For Awesome Recipes <br /><span><em>(By Ingredient)</em></span></h2>
+          <button onClick={this.viewPartyBoardSwitch.bind(this)}>View Current Party</button>
           <img className="recipeSearchCharacters" src="img/recipeSearchCompCharacters.png" alt="cartoon food characters, search for cool recipes - foodies plan it" />
           <form className="emailsInputForm" onSubmit={this.searchSubmitHandler.bind(this)}>
             <input className="emailsInputField" type="text" onChange={this.recipeChangeHandler.bind(this)} placeholder="SPICY CHICKEN..." />
@@ -94,11 +108,17 @@ class RecipeSearch extends Component {
           </form>
         </div>
         <div className="homeRight">
-          <button onClick={this.viewPartyBoardSwitch.bind(this)}>View Current Party</button>
-          <ul>
+          {(this.state.searchResults.length > 0) ? <img className="downArrow" onClick={this.downArrowHandler.bind(this)} src="img/downArrow.png" alt="click to scroll through recipe results" /> : "" }
+          {(this.state.searchResults.length > 0) ? <img className="upArrow" onClick={this.upArrowHandler.bind(this)} src="img/upArrow.png" alt="click to scroll back through previous recipe results" /> : "" }
+          <ul className="recipeGrid" style={{top: this.state.yposition}}>
             {this.state.searchResults.map((singleRecipe, i) =>
-              <div>
-                <li key={singleRecipe.image}><img src={singleRecipe.image} alt="recipe search result"/></li>
+              <div className="recipeImgOuterContainer">
+                <li className="recipeImgLI" key={singleRecipe.image}>
+                  <div className="recipeImg" alt="recipe Image" style={{
+                    backgroundImage: 'url(' + singleRecipe.image + ')'
+                    }}>
+                  </div>
+                </li>
                 <li key={singleRecipe.title}className="recipeTitle">{singleRecipe.title}</li>
                 <li key={singleRecipe.sourceName}className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
                 <li key={i} className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
