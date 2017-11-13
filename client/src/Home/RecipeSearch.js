@@ -4,6 +4,7 @@ import history from '../history';
 import { TimelineMax } from 'gsap';
 import GSAP from 'react-gsap-enhancer';
 import PartyBoard from './PartyBoard';
+import RecipeCard from './RecipeCard';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class RecipeSearch extends Component {
       recipeSearch: "",
       newRecipe: "",
       searchResults: [],
-      yposition: 0
+      yposition: 0,
+      currentRecipe: {},
+      currentRecipeFlag: false
     };
   }
 
@@ -94,6 +97,14 @@ class RecipeSearch extends Component {
     this.props.history.push('/partyboard', {newPartyId: history.location.state.newParty._id});
   }
 
+  showRecipeCard(event) {
+    const currentRecipe = this.state.searchResults[event.target.value];
+    this.setState({
+      currentRecipe: currentRecipe,
+      currentRecipeFlag: true
+    });
+  }
+
 
   render() {
     return (
@@ -114,22 +125,27 @@ class RecipeSearch extends Component {
             {this.state.searchResults.map((singleRecipe, i) =>
               <div className="recipeImgOuterContainer">
                 <li className="recipeImgLI" key={singleRecipe.image}>
-                  <div className="recipeImg" alt="recipe Image" style={{
+                  <div
+                    className="recipeImg" alt="recipe Image" style={{
                     backgroundImage: 'url(' + singleRecipe.image + ')'
                     }}>
+                    <button value={i} onClick={this.showRecipeCard.bind(this)}>VIEW RECIPE</button>
                   </div>
                 </li>
-                <li key={singleRecipe.title}className="recipeTitle">{singleRecipe.title}</li>
-                <li key={singleRecipe.sourceName}className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
-                <li key={i} className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
               </div>
             )}
           </ul>
         </div>
+        { this.state.currentRecipeFlag && <RecipeCard currentRecipe={this.state.currentRecipe} /> }
       </div>
     );
   }
 
 }
+
+//                  <li key={singleRecipe.title}className="recipeTitle">{singleRecipe.title}</li>
+//                  <li key={singleRecipe.sourceName}className="recipeSourceName"><em>from: {singleRecipe.sourceName}</em></li>
+//                  <li key={i} className="saveRecipeBtn"><button value={i} onClick={this.saveRecipe.bind(this)}>SAVE</button></li>
+
 
 export default RecipeSearch;
