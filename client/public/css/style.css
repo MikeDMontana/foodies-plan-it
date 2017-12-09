@@ -140,6 +140,10 @@ a {
   z-index: 1000;
 }
 
+ul.userEmailList {
+  position: relative;
+}
+
 .recipeImgOuterContainer {
   width: 50%;
   min-height: 200px;
@@ -226,6 +230,7 @@ input.datesInputField, input.newMealDescriptionField {
   display: flex;
   flex-direction: column;
   margin: 2em 0em;
+  position: relative;
 }
 
 .homePartyBtn {
